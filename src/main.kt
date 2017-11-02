@@ -12,8 +12,9 @@ var person = AbilitySystem((1..10).random(), (1..10).random(), (1..10).random(),
 var days = 1
 /* data class Job constructor(val id:Int,)
 var test = Job((1..10).random()) */
-fun get(){
-    println("您的力量為 ${person.pow}，速度為 ${person.spd}， 運氣為 ${person.luk}，可使用能力值為 ${person.AP}" )
+fun get():String {
+    println("您的力量為 ${person.pow}，速度為 ${person.spd}， 運氣為 ${person.luk}，可使用能力值為 ${person.AP}")
+    return String()
 }
 fun addAP(){
 
@@ -37,6 +38,8 @@ fun main(args: Array<String>) {
         println("今天是第 $days 天")
         println()
         println(getEmoWarr())
+        println()
+        println(get())
         println()
         for (inworkingtime in 1..8) {
             if (cartsB1f > 26){
