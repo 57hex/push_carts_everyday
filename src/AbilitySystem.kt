@@ -1,16 +1,8 @@
-class Ability(var pow: Int,var spd: Int,var luk: Int, var AbilityPoint: Int){
-    fun firsttimerandom() {
+class Ability constructor(var pow: Int,var spd: Int,var luk: Int, var AbilityPoint: Int){
+    fun randomize() {
         pow = (4..15).random()
         spd = (4..15).random()
         luk = (4..15).random()
-        AbilityPoint = 4
+        AbilityPoint = (4..15).random()
     }
-    fun get() {
-        println("您的力量為$pow 速度為$spd 運氣為$luk 可使用能力值為$AbilityPoint")
-    }
-    fun getAbilityPoint() {
-        AbilityPoint += (1..3).random()
-        println("您現在可使用的能力值為$AbilityPoint")
-    }
-
 }
