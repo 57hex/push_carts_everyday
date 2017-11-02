@@ -1,3 +1,5 @@
+package funtions
+
 var carts5f = (1..10).random()
 var carts4f = (1..20).random()
 var carts3f = (10..30).random()
