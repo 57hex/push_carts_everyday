@@ -8,5 +8,7 @@ fun salary(){
     if(OffworkTime - ToworkTime > 10){
         println("OT了！")
         emotional-= 1
+        TODO("超時工作加薪")
     }
+
 }
