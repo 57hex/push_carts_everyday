@@ -27,7 +27,7 @@ fun main(args: Array<String>) {
         println()
         println(getEmoWarr())
         println()
-        GetYasumi()
+        GetYasumi() // 判斷今天是否休假
         println(get())
         println()  //每一天開始都會提醒是第幾天，提醒警告單與心情值、還有顯示能力值
         if (Yasuminohi % 3 == 0) { // 暫時用機率代替隨機休假
@@ -35,32 +35,32 @@ fun main(args: Array<String>) {
             continue
         } else //如果沒有休假就從得到上班下班時間開始
             getWorkingTime()
-        var inworkingtime = OffworkTime - ToworkTime
-        println()
-        println("$personname 在 $ToworkTime 點上班了！ ")
-        println()
-        do { //工作時間
+            var inworkingtime = OffworkTime - ToworkTime
+            println()
+            println("$personname 在 $ToworkTime 點上班了！ ")
+            println()
+            do { //工作時間
+                getRandomCartsB1fcount()
+                if (cartsB1f > 26) {
+                    println("推車滿多的，休息一下吧")
+                    emotional += 1
+                    getEmoWarr()
+                } else if (cartsB1f < 25 && cartsB1f > 11) {
+                    println("推車有點少，被客人罵了")
+                    emotional -= 1
+                    getEmoWarr()
+                } else if (cartsB1f < 10) {
+                    println("推車太少了，被客人罵然後收了一張警告單")
+                    warrning += 1
+                    emotional -= 1
+                    getEmoWarr()
+                }
+                inworkingtime--
 
-            if (cartsB1f > 26) {
-                println("推車滿多的，休息一下吧")
-                emotional += 1
-                getEmoWarr()
-            } else if (cartsB1f < 25 && cartsB1f > 11) {
-                println("推車有點少，被客人罵了")
-                emotional -= 1
-                getEmoWarr()
-            } else if (cartsB1f < 10) {
-                println("推車太少了，被客人罵然後收了一張警告單")
-                warrning += 1
-                emotional -= 1
-                getEmoWarr()
-            }
-            inworkingtime--
-
-        } while (inworkingtime != 0)
+            } while (inworkingtime != 0)
         println("$personname 在 $OffworkTime 下班了！")
         salary() //日節薪水
-
+        println()
     }
 }
 
