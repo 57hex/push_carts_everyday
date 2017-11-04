@@ -59,6 +59,7 @@ fun main(args: Array<String>) {
 
             } while (inworkingtime != 0)
         println("$personname 在 $OffworkTime 下班了！")
+        addAP()
         salary() //日節薪水
         println()
     }
