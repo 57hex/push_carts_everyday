@@ -1,3 +1,5 @@
+package funtions
+
 import classes.workersname
 import funtions.*
 
@@ -11,7 +13,7 @@ var days = 1 // 天數
 //TODO("補上每天工作內容")
 fun timer(){
     TODO("加上每天延遲的功能")
-    // timer.schedule(timerTask {get()}, 13000)
+    // funtions.timer.schedule(timerTask {get()}, 13000)
 
 }
 
@@ -35,33 +37,28 @@ fun main(args: Array<String>) {
             continue
         } else //如果沒有休假就從得到上班下班時間開始
             getWorkingTime()
-            var inworkingtime = OffworkTime - ToworkTime
+        var inworkingtime = OffworkTime - ToworkTime
             println()
             println("$personname 在 $ToworkTime 點上班了！ ")
             println()
-            do { //工作時間
-                getRandomCartsB1fcount()
-                if (cartsB1f > 26) {
-                    println("推車滿多的，休息一下吧")
-                    emotional += 1
-                    getEmoWarr()
-                } else if (cartsB1f < 25 && cartsB1f > 11) {
-                    println("推車有點少，被客人罵了")
-                    emotional -= 1
-                    getEmoWarr()
-                } else if (cartsB1f < 10) {
-                    println("推車太少了，被客人罵然後收了一張警告單")
-                    warrning += 1
-                    emotional -= 1
-                    getEmoWarr()
-                }
-                inworkingtime--
+            gettheWork()
+        do {
+            when (doinginworking) {
+                1 -> CheckandPushB1FCarts()
+                2 -> CheckandPush1FCarts()
+            }
+            inworkingtime --
 
-            } while (inworkingtime != 0)
+        }while (inworkingtime != 0)
+
+
+
         println("$personname 在 $OffworkTime 下班了！")
         addAP()
         salary() //日節薪水
         println()
+        person.AP ++
     }
 }
+
 
