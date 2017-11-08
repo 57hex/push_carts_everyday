@@ -12,6 +12,7 @@ fun workinginfo(){
 var doinginworking: Int = 0
 fun gettheWork(){
     doinginworking = 1
+
 }
 fun CheckandPushB1FCarts() {
     //工作時間

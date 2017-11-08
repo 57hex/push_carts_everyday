@@ -2,7 +2,8 @@ package funtions
 
 import classes.workersname
 import funtions.*
-
+import sun.jvmstat.monitor.LongMonitor
+import java.util.*
 var stamina = 100 // 體力值
 var emotional = 5 // 心情值
 var warrning = 0  // 警告單數量
@@ -11,17 +12,12 @@ var days = 1 // 天數
 //data class Job constructor(val id:Int)
 //TODO("補上職業")
 //TODO("補上每天工作內容")
-fun timer(){
-    TODO("加上每天延遲的功能")
-    // funtions.timer.schedule(timerTask {get()}, 13000)
 
-}
 
 fun main(args: Array<String>) {
     var personname = "Wtson" // 人物名稱
     workersname(personname).greet() // 呼叫 workersname 傳入 personname 的值 實行 .greet 的方法
     workinginfo() // 呼叫 workinginfo 方法
-
     println("打好卡，穿好制服，往賣場移動。")
     println("進入休息區時，檢查了一下推車區，剩下 ${cartsB1f} 台。")
     for (days in 1..100) {   // 遊戲總共有 100 天， 所以 for 100 次
