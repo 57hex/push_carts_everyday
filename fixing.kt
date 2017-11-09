@@ -19,9 +19,9 @@ var cartsB2f = (10..50).random()
 //-------  停車場空位總數 -------
 
 var threefloor_parking = 108
-var fourfloor = 109
-var fivefloor = 108
-var B2floor = 170
+var fourfloor_parking = 109
+var fivefloor_parking = 108
+var B2floor_parking = 170
 
 //--------------
 
