@@ -248,6 +248,7 @@ fun main(args: Array<String>) {
         GetYasumi() // 判斷今天是否休假
         println(get())
         println()  //每一天開始都會提醒是第幾天，提醒警告單與心情值、還有顯示能力值
+        doinginworking = (1..10).random()
         if (Yasuminohi % 3 == 0) { // 暫時用機率代替隨機休假
             println("Days off.")
             continue
@@ -258,7 +259,6 @@ fun main(args: Array<String>) {
             println("$personname clocked in at $ToworkTime! ")
             println()
             do {
-                doinginworking = (1..10).random()
                 when (doinginworking) {
                     1 -> {
                         CheckandPushB1FCarts()
@@ -269,10 +269,11 @@ fun main(args: Array<String>) {
                     else -> println("Enter a strange place")
 
                 }
-                println(inworkingtime)
+                println("Time left: $inworkingtime hours")
+                println()
                 inworkingtime --
 
-            } while (inworkingtime >= 0)
+            } while (inworkingtime > 0)
         }
 
 
