@@ -4,7 +4,6 @@ fun ClosedRange<Int>.random() = Random().nextInt(endInclusive - start) +  start
 // 隨機function
 //-------  推車總數 -------
 
-
 var carts5f = (1..10).random()
 var carts4f = (1..20).random()
 var carts3f = (10..30).random()

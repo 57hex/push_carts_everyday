@@ -53,7 +53,6 @@ fun main(args: Array<String>) {
         addAP()
         salary() //日節薪水
         println()
-        person.AP ++
     }
 }
 
