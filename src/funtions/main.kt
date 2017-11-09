@@ -10,7 +10,7 @@ var carts4f = (1..20).random()
 var carts3f = (10..30).random()
 var carts2f = (10..50).random()
 var carts1f = (20..80).random()
-var cartsB1f = 0
+var cartsB1f = (1..50).random()
 var cartsB2f = (10..50).random()
 
 
@@ -101,6 +101,7 @@ fun workinginfo(){
     println("That's all. Please enjoy.")
     println("")
 }
+
 fun gettheWork(){
     doinginworking = (1..10).random()
 }
@@ -123,7 +124,7 @@ open class workersname(val name: String){
 //-------  工作內容  -------
 fun CheckandPushB1FCarts() {
     //工作時間
-    getRandomCartsB1fcount()
+    getRandomCartsB1fCount()
     if (cartsB1f > 26) {
         println("Find many barrows,time to rest")
         println("")
@@ -145,7 +146,7 @@ fun CheckandPushB1FCarts() {
     }
 }
 fun CheckandPush1FCarts() {
-    getRandomCarts1fcount()
+    getRandomCarts1fCount()
     if (carts1f > 40){
         println("Find many barrows,time to rest.")
         println("")
@@ -165,19 +166,19 @@ fun timer(){
 //--------------
 
 // ------- 隨機化推車數量 -------
-fun getRandomCartsB1fcount(){
+fun getRandomCartsB1fCount(){
     cartsB1f = (1..50).random()
 }
-fun getRandomCartsB2fcount(){
+fun getRandomCartsB2fCount(){
     cartsB2f = (1..50).random()
 }
-fun getRandomCarts1fcount(){
+fun getRandomCarts1fCount(){
     carts1f = (1..50).random()
 }
-fun getRandomCarts2fcount(){
+fun getRandomCarts2fCount(){
     carts2f = (1..50).random()
 }
-fun getRandomCarts3ffcount(){
+fun getRandomCarts3ffCount(){
     carts3f = (1..50).random()
 }
 //--------------
@@ -250,22 +251,29 @@ fun main(args: Array<String>) {
         if (Yasuminohi % 3 == 0) { // 暫時用機率代替隨機休假
             println("Days off.")
             continue
-        } else //如果沒有休假就從得到上班下班時間開始
+        } else { //如果沒有休假就從得到上班下班時間開始
             getWorkingTime()
-        var inworkingtime = OffworkTime - ToworkTime
-        println()
-        println("$personname clocked in at $ToworkTime! ")
-        println()
-        gettheWork()
-        do {
-            when (doinginworking) {
-                1 -> CheckandPushB1FCarts()
-                2 -> CheckandPush1FCarts()
-            }
-            inworkingtime --
+            var inworkingtime = OffworkTime - ToworkTime
+            println()
+            println("$personname clocked in at $ToworkTime! ")
+            println()
+            do {
+                doinginworking = (1..10).random()
+                when (doinginworking) {
+                    1 -> {
+                        CheckandPushB1FCarts()
+                    }
+                    2 -> {
+                        CheckandPush1FCarts()
+                    }
+                    else -> println("Enter a strange place")
 
-        }while (inworkingtime != 0)
+                }
+                println(inworkingtime)
+                inworkingtime --
 
+            } while (inworkingtime >= 0)
+        }
 
 
         println("$personname clocked out at $OffworkTime! ")
