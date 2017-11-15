@@ -1,10 +1,15 @@
 import java.util.*
+
 import kotlin.system.exitProcess
+
+
+
 fun ClosedRange<Int>.random() = Random().nextInt(endInclusive - start) +  start
 // 隨機function
-//-------  推車總數 -------
+//-------  推車總數、來客數、時間 -------
 
-
+var customer = 0
+var clock = 0
 var carts5f = (1..10).random()
 var carts4f = (1..20).random()
 var carts3f = (10..30).random()
@@ -124,48 +129,69 @@ open class workersname(val name: String){
 //-------  工作內容  -------
 fun CheckandPushB1FCarts() {
     //工作時間
-    getRandomCartsB1fCount()
-    if (cartsB1f > 26) {
+    if (cartsB1f >= 26) {
         println("Find many barrows,time to rest")
         println("")
         emotional += 1
         getEmoWarr()
-    } else if (cartsB1f < 25 && cartsB1f > 11) {
+    } else if (cartsB1f in 12..25) {
         println("The amount of barrows are a little bit small.")
         println("You was reproved by coustomer.")
         println("")
         emotional -= 1
         getEmoWarr()
-    } else if (cartsB1f < 10) {
+    } else if (cartsB1f <= 11) {
         println("Barrows were so small.")
         println("Argued by coustomer, and you've get one ticket.")
         println("")
         warrning += 1
         emotional -= 1
         getEmoWarr()
+        val input = Scanner(System.`in`)
+        println("請問是否要補車？")
+        var id = input.nextInt()
+        when(id){
+            1 -> TODO("推車功能")
+            2 -> println()
+        }
     }
 }
-fun CheckandPush1FCarts() {
-    getRandomCarts1fCount()
+  fun CheckandPush1FCarts() {
+
     if (carts1f > 40){
         println("Find many barrows,time to rest.")
         println("")
-    } else if (carts1f < 20 && carts1f > 10){
+    } else if (carts1f in 11..19){
         println("Too little barrows,got blamed.")
         println("")
         emotional--
         getEmoWarr()
+        val input = Scanner(System.`in`)
+        println("請問是否要補車？")
+        var id = input.nextInt()
+        when(id){
+            1 -> TODO("推車功能")
+            2 -> println()
+        }
     }
 }
 //--------------
 //-------  延時器 -------
-fun timer(){
-    TODO("加上每天延遲的功能")
-    // funtions.timer.schedule(timerTask {get()}, 13000)
-}
+
+
+
 //--------------
 
-// ------- 隨機化推車數量 -------
+// ------- 隨機化推車數量、顧客 -------
+fun getCustomerCount(){
+    when (clock) {
+        in 8..9 -> customer = (20..50).random()
+        in 10..13 -> customer = (50..100).random()
+        in 14..16 -> customer = (20..50).random()
+        in 17..21 -> customer = (50..100).random()
+        in 22..23 -> customer = (10..20).random()
+    }
+}
 fun getRandomCartsB1fCount(){
     cartsB1f = (1..50).random()
 }
@@ -173,20 +199,20 @@ fun getRandomCartsB2fCount(){
     cartsB2f = (1..50).random()
 }
 fun getRandomCarts1fCount(){
-    carts1f = (1..50).random()
+    carts1f = (50..200).random()
 }
 fun getRandomCarts2fCount(){
     carts2f = (1..50).random()
 }
 fun getRandomCarts3ffCount(){
-    carts3f = (1..50).random()
+    carts3f = (1..75).random()
 }
 //--------------
 
 // -------- 檢查警告單、心情、獲取能力值、配點  -------
 
 fun getEmoWarr():String{
-    println("You've got ${warrning} tickets.Your emotion is: ${emotional}")
+    println("You've got $warrning tickets.Your emotion is: $emotional")
     println("")
     if (emotional == 0){
         var getsometingspecial = (1..100).random()
@@ -239,7 +265,7 @@ fun main(args: Array<String>) {
     workinginfo() // 呼叫 workinginfo 方法
 
     println("Clock-in! Wear your uniform,move to mall.")
-    println("Check barrows area, ${cartsB1f} left.")
+    println("Check barrows area, $cartsB1f left.")
     for (days in 1..100) {   // 遊戲總共有 100 天， 所以 for 100 次
         println("Today is day $days.")
         println()
@@ -269,6 +295,7 @@ fun main(args: Array<String>) {
                     else -> println("Enter a strange place")
 
                 }
+
                 println(inworkingtime)
                 inworkingtime --
 
