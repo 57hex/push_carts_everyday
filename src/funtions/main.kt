@@ -71,7 +71,8 @@ var Yasuminohi: Int = 0
 //--------------
 
 
-//取得工時、薪資、判斷休假日、工作內容、上班要做的事情
+//取得工時、薪資、判斷休假日、工作內容、上班要做的事情、星期幾
+
 
 fun getWorkingTime(){
     ToworkTime = (7..10).random()
@@ -192,6 +193,15 @@ fun getCustomerCount(){
         in 22..23 -> customer = (10..20).random()
     }
 }
+fun getSatSunCustomerCount(){
+    when (clock) {
+        in 8..9 -> customer = (40..70).random()
+        in 10..13 -> customer = (70..120).random()
+        in 14..16 -> customer = (40..70).random()
+        in 17..21 -> customer = (70..120).random()
+        in 22..23 -> customer = (30..50).random()
+    }
+}
 fun getRandomCartsB1fCount(){
     cartsB1f = (1..50).random()
 }
@@ -268,6 +278,13 @@ fun main(args: Array<String>) {
     println("Check barrows area, $cartsB1f left.")
     for (days in 1..100) {   // 遊戲總共有 100 天， 所以 for 100 次
         println("Today is day $days.")
+        if (days % 7 == 1) println("Monday")
+        else if (days % 7 == 2) println("Tuesday")
+        else if (days % 7 == 3) println("Wednesday")
+        else if (days % 7 == 4) println("Thursday")
+        else if (days % 7 == 5) println("Friday")
+        else if (days % 7 == 6) println("Saturday")
+        else if (days % 7 == 0) println("Sunday")
         println()
         println(getEmoWarr())
         println()
