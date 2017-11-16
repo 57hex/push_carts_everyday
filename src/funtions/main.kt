@@ -8,27 +8,19 @@ fun ClosedRange<Int>.random() = Random().nextInt(endInclusive - start) +  start
 // 隨機function
 //-------  推車總數、來客數、時間 -------
 
+
+class Carts constructor(var carts5f:Int, var carts4f:Int, var carts3f:Int, var carts2f:Int, var carts1f:Int, var cartsB1f:Int, var cartsB2f: Int)
 var customer = 0
 var clock = 0
-var carts5f = (1..10).random()
-var carts4f = (1..20).random()
-var carts3f = (10..30).random()
-var carts2f = (10..50).random()
-var carts1f = (20..80).random()
-var cartsB1f = (1..50).random()
-var cartsB2f = (10..50).random()
+var carts = Carts(0,0,0,0,0,0,0)
 
 
 //--------------
 
 
 //-------  停車場空位總數 -------
-
-var threefloor_parking = 108
-var fourfloor = 109
-var fivefloor = 108
-var B2floor = 170
-
+class Parking constructor(var threefloor_parking:Int, var fourfloor_parking:Int, var fivefloor_parking:Int, var B2floor_parking:Int)
+var parking = Parking(108,109,108,170)
 //--------------
 
 
@@ -47,9 +39,8 @@ var days = 1 // 天數
 
 //-------  能力值 -------
 
-
-var person = AbilitySystem((1..10).random(), (1..10).random(), (1..10).random(), 4) // 人物素質初始化
 open class AbilitySystem constructor (var pow:Int, var spd:Int, var luk:Int, var AP:Int) // 能力系統，pow 力量 spd 速度 Int 幸運 AP 技能點。
+var person = AbilitySystem((1..10).random(), (1..10).random(), (1..10).random(), 4) // 人物素質初始化
 //data class Job constructor(val id:Int)
 //TODO("補上職業")
 //TODO("補上每天工作內容")
@@ -130,18 +121,18 @@ open class workersname(val name: String){
 //-------  工作內容  -------
 fun CheckandPushB1FCarts() {
     //工作時間
-    if (cartsB1f >= 26) {
+    if (carts.cartsB1f >= 26) {
         println("Find many barrows,time to rest")
         println("")
         emotional += 1
         getEmoWarr()
-    } else if (cartsB1f in 12..25) {
+    } else if (carts.cartsB1f in 12..25) {
         println("The amount of barrows are a little bit small.")
         println("You was reproved by coustomer.")
         println("")
         emotional -= 1
         getEmoWarr()
-    } else if (cartsB1f <= 11) {
+    } else if (carts.cartsB1f <= 11) {
         println("Barrows were so small.")
         println("Argued by coustomer, and you've get one ticket.")
         println("")
@@ -159,10 +150,10 @@ fun CheckandPushB1FCarts() {
 }
   fun CheckandPush1FCarts() {
 
-    if (carts1f > 40){
+    if (carts.carts1f > 40){
         println("Find many barrows,time to rest.")
         println("")
-    } else if (carts1f in 11..19){
+    } else if (carts.carts1f in 11..19){
         println("Too little barrows,got blamed.")
         println("")
         emotional--
@@ -176,6 +167,7 @@ fun CheckandPushB1FCarts() {
         }
     }
 }
+
 //--------------
 //-------  延時器 -------
 
@@ -203,21 +195,32 @@ fun getSatSunCustomerCount(){
     }
 }
 fun getRandomCartsB1fCount(){
-    cartsB1f = (1..50).random()
+    carts.cartsB1f = (1..50).random()
 }
 fun getRandomCartsB2fCount(){
-    cartsB2f = (1..50).random()
+    carts.cartsB2f = (1..50).random()
 }
 fun getRandomCarts1fCount(){
-    carts1f = (50..200).random()
+    carts.carts1f = (50..200).random()
 }
 fun getRandomCarts2fCount(){
-    carts2f = (1..50).random()
+    carts.carts2f = (1..50).random()
 }
 fun getRandomCarts3ffCount(){
-    carts3f = (1..75).random()
+    carts.carts3f = (1..75).random()
+}
+fun getTotallyCartsCount(){
+    carts.carts2f -= customer / (3..4).random()
+    carts.carts1f -= customer / (3..4).random()
+    carts.cartsB1f -= customer / (1..2).random()
 }
 //--------------
+
+// -------- 推車功能  -------
+
+fun PushB1Carts(){
+    //TODO:("腦袋進水不知道怎麼補")
+}
 
 // -------- 檢查警告單、心情、獲取能力值、配點  -------
 
@@ -275,7 +278,7 @@ fun main(args: Array<String>) {
     workinginfo() // 呼叫 workinginfo 方法
 
     println("Clock-in! Wear your uniform,move to mall.")
-    println("Check barrows area, $cartsB1f left.")
+    println("Check barrows area, $carts.cartsB1f left.")
     for (days in 1..100) {   // 遊戲總共有 100 天， 所以 for 100 次
         println("Today is day $days.")
         if (days % 7 == 1) println("Monday")
@@ -301,27 +304,30 @@ fun main(args: Array<String>) {
             println()
             println("$personname clocked in at $ToworkTime! ")
             println()
-            do {
-                when (doinginworking) {
-                    1 -> {
-                        CheckandPushB1FCarts()
+            if (days % 7 > 6) {
+                do {
+                    when (doinginworking) {
+                        1 -> {
+                            CheckandPushB1FCarts()
+                        }
+                        2 -> {
+                            CheckandPush1FCarts()
+                        }
+                        else -> println("Enter a strange place")
+
                     }
-                    2 -> {
-                        CheckandPush1FCarts()
-                    }
-                    else -> println("Enter a strange place")
-
-                }
 
 
-                println(inworkingtime)
 
-                println("Time left: $inworkingtime hours")
-                println()
+                    println(inworkingtime)
 
-                inworkingtime --
+                    println("Time left: $inworkingtime hours")
+                    println()
 
-            } while (inworkingtime > 0)
+                    inworkingtime--
+
+                } while (inworkingtime > 0)
+            }
         }
 
 
