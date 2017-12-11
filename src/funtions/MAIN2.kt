@@ -56,7 +56,7 @@ data class player constructor(private var pow:Int,private var spd:Int,private va
             println("AP 在 5 點以下了，現在的 AP 為 ${this.AP} ")
             return true
         }
-        if (this.AP == 0){
+        if (this.AP <= 0){
             println("沒有AP了！")
             return false
         }
