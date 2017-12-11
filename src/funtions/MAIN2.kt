@@ -6,7 +6,7 @@ fun ClosedRange<Int>.random() = Random().nextInt(endInclusive - start) +  start
 // 個人數值
 data class player constructor(private var pow:Int,private var spd:Int,private var luk:Int,private var AP:Int){
     fun getall(): String{
-        return "您目前的素質為 力量：$pow ，速度：$spd ，運氣：$luk ，可使用 ＡＰ 為 :$AP"
+        return "Your power: ${this.pow}.Speed: ${this.spd}. Lucky: ${this.luk}. Ability Point: ${this.AP}"
     }
     fun getpow():Int{
         return this.pow
@@ -22,7 +22,7 @@ data class player constructor(private var pow:Int,private var spd:Int,private va
     }
     fun Addpow(pow: Int):Int{
         if (checkAPis0orNot()){
-            if (this.pow - pow >= 0) {
+            if (this.AP - pow >= 0) {
                 this.pow += pow
                 return this.pow
             }
@@ -33,7 +33,7 @@ data class player constructor(private var pow:Int,private var spd:Int,private va
     }
     fun Addspd(spd: Int):Int{
         if (checkAPis0orNot()) {
-            if (this.spd - spd >= 0){
+            if (this.AP - spd >= 0){
             this.spd += spd
             return this.spd
             }
@@ -43,7 +43,7 @@ data class player constructor(private var pow:Int,private var spd:Int,private va
     }
     fun Addluk(luk: Int):Int{
         if (checkAPis0orNot()) {
-            if (this.luk - luk >= 0) {
+            if (this.AP - luk >= 0) {
                 this.luk -= luk
                 return this.luk
             }
@@ -53,11 +53,11 @@ data class player constructor(private var pow:Int,private var spd:Int,private va
     }
     fun checkAPis0orNot(): Boolean {
         if (this.AP < 5) {
-            println("AP 在 5 點以下了，現在的 AP 為 ${this.AP} ")
+            println("Your AP is less than 5, now your AP is ${this.AP} ")
             return true
         }
         if (this.AP <= 0){
-            println("沒有AP了！")
+            println("YOU DON'T HAVE ANY AP!")
             return false
         }
         else return true
@@ -68,12 +68,22 @@ data class player constructor(private var pow:Int,private var spd:Int,private va
         this.luk = (0..10).random()
         this.AP = 10
     }
+    fun AddWhat(x: Int, y: Int):String{
+        when (x){
+            0 -> Addpow(y)
+            1 -> Addspd(y)
+            2 -> Addluk(y)
+        }
+        return this.getall()
+    }
 
 }
 // 個人素質結束
 
 //天數、警告、體力、心情系統
-class daily constructor(private var days:Int, private var emotional:Int, private var warrning:Int, private var stamina: Int)
+class daily constructor(private var days:Int, private var emotional:Int, private var warrning:Int, private var stamina: Int){
+    
+}
 
 //天數、警告、體力、心情系統結束
 
