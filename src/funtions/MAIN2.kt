@@ -21,7 +21,7 @@ data class Player constructor(private var pow:Int,private var spd:Int,private va
         return this.AP
     }
     private fun AddPow(pow: Int):Int{
-        if (checkAPis0orNot()){
+        if (checkAPis0orNot() && pow > 0){ //避免增加AP被輸入負數
             if (this.AP - pow >= 0) {
                 this.pow += pow
                 this.AP -= pow
@@ -33,7 +33,7 @@ data class Player constructor(private var pow:Int,private var spd:Int,private va
             return 0
     }
     private fun AddSpd(spd: Int):Int{
-        if (checkAPis0orNot()) {
+        if (checkAPis0orNot() && pow > 0) {
             if (this.AP - spd >= 0){
             this.spd += spd
             this.AP -= spd
@@ -44,7 +44,7 @@ data class Player constructor(private var pow:Int,private var spd:Int,private va
         else return 0
     }
     fun AddLuk(luk: Int):Int{
-        if (checkAPis0orNot()) {
+        if (checkAPis0orNot() && pow > 0) {
             if (this.AP - luk >= 0) {
                 this.luk += luk
                 this.AP -= luk
@@ -60,6 +60,7 @@ data class Player constructor(private var pow:Int,private var spd:Int,private va
         }
         if (this.AP <= 0){
             println("YOU DON'T HAVE ANY AP!")
+            this.AP = 0 // 清空AP，避免有AP為負的情況發生
             return false
         }
         else return true
@@ -75,36 +76,24 @@ data class Player constructor(private var pow:Int,private var spd:Int,private va
             0 -> AddPow(y)
             1 -> AddSpd(y)
             2 -> AddLuk(y)
+            else -> println("you have to input a number which between 0~2")
+        }
+        if (y < 0){
+            println("the input number should be a positive integer")
         }
         return this.getall()
     }
-    fun ListenAddWhat(){
-        println("Please input two number to add your ability.")
-        println("the first number is used to choice the ability that you want to add.")
-        println("0 is pow, 1 is spd, 2 is luk.")
-        println("the second number is used to decide how much point you want to add.")
-        println("your currently AP is ${this.AP}")
-        val scanner = Scanner(System.`in`)
-        val x = scanner.nextInt()
-        when (x){
-            0 -> println("your choice is power. your currently power is ${this.pow}, how much point do you want to add?")
-            1 -> println("your choice is speed. your currently speed is ${this.spd}, how much point do you want to add?")
-            2 -> println("your choice is lucky. your currently lucky is ${this.luk}, how much point do you want to add?")
-        }
-        val y = scanner.nextInt()
-        AddWhat(x, y)
-        println(getall())
-    }
+
 }
 // 個人素質結束
 
 //天數、警告、體力、心情系統
 class daily constructor(private var days:Int, private var emotional:Int, private var warrning:Int, private var stamina: Int){
-
+    
 }
 
 //天數、警告、體力、心情系統結束
 
 fun main(args: Array<String>) {
-    val Watson = Player(0,0,0,0).Randomnize()
-    }
+    var Watson = Player(0,0,0,0).Randomnize()
+}
