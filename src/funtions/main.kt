@@ -31,7 +31,6 @@ var parking = Parking(108, 109, 108, 170)
 var stamina = 100 // 體力值
 var emotional = 5 // 心情值
 var warrning = 0  // 警告單數量
-var days = 1 // 天數
 
 
 //--------------
@@ -73,33 +72,32 @@ fun getWorkingTime() {
 
 fun salary() {
     if (OffworkTime - ToworkTime > 8) {
-        println("Off work！")
+        println("下班囉！")
         emotional -= 1
         DailySalary = (((OffworkTime - ToworkTime) - 8) * 2 * 133) + 8 * 133
         TotalSalary += DailySalary
-        println("Today's earning: $DailySalary dollars")
+        println("今天總共賺了:$DailySalary 元")
     } else if (OffworkTime - ToworkTime <= 8) {
-        println("Off work on time!")
+        println("準時下班,奇蹟!")
         emotional += 1
         DailySalary = (OffworkTime - ToworkTime) * 133
         TotalSalary += DailySalary
-        println("Today's earning $DailySalary dollars")
+        println("今天總共賺了:$DailySalary 元")
     }
 }
 
-fun GetYasumi() {
+fun getyasumi() {
     Yasuminohi = (0..10).random()
 }
 
 fun workinginfo() {
-    println("Your job is:move barrows, change barrelled water, collect basket, count parking space, active escalator, deliver packages.")
-    println("According to rule, you can only move 12 barrows once.")
-    println("If supervisor see you against the rule, you'll get a ticket, or get report to Section Manager. ")
-    println("Keep it in mind, you can only deal with one thing at a time.")
-    println("The salary:133/hr, working seven days in a row and get two days off. Seven-hour work day")
-    println("Since you study in night schoo, you have get to school on time.")
-    println("That's all. Please enjoy.")
-    println("")
+    println("你的工作是：移動車車、換水、收籃子、數停車位(why?)、開手扶梯、送包裹")
+    println("根據過勞法(?)規定,一次只能移動12輛車車")
+    println("如果主管看到你違反規則,你就準備吃單子,不然就是被往上呈報")
+    println("記住,一次一件事")
+    println("薪水為133/時,做七休二,一天七小")
+    println("而且你晚上還要上課")
+    println("這就是全部了,玩得愉快\n")
 }
 
 fun gettheWork() {
@@ -110,62 +108,54 @@ fun gettheWork() {
 
 
 //跟人物搭招呼
-open class workersname(val name: String) {
+class Workersname(val name: String) {
     fun greet() {
-        println("$name, Time to work!")
+        println("$name,該當社畜啦")
     }
 }
 //--------------
 
 
-//-------  工作內容  -------
-fun CheckandPushB1FCarts() {
-    //工作時間
-    if (carts.cartsB1f >= 26) {
-        println("Find many barrows,time to rest")
-        println("")
-        emotional += 1
-        getEmoWarr()
-    } else if (carts.cartsB1f in 12..25) {
-        println("The amount of barrows are a little bit small.")
-        println("You was reproved by coustomer.")
-        println("")
-        emotional -= 1
-        getEmoWarr()
-    } else if (carts.cartsB1f <= 11) {
-        println("Barrows were so small.")
-        println("Argued by coustomer, and you've get one ticket.")
-        println("")
-        warrning += 1
-        emotional -= 1
-        getEmoWarr()
-        val input = Scanner(System.`in`)
-        println("請問是否要補車？")
-        val id = input.nextInt()
-        when (id) {
-            1 -> TODO("推車功能")
-            2 -> println()
-        }
+fun rest() {
+    println("推車足夠了,休息吧\n")
+    emotional += 1
+}
+
+
+fun ask() {
+    val input = Scanner(System.`in`)
+    val decide = input.nextInt()
+    println("要不要補車車?\n")
+    when (decide) {
+        1 -> TODO("推車")
+        2 -> println("勞資不推啦!\n")
     }
 }
 
-fun CheckandPush1FCarts() {
 
-    if (carts.carts1f > 40) {
-        println("Find many barrows,time to rest.")
-        println("")
-    } else if (carts.carts1f in 11..19) {
-        println("Too little barrows,got blamed.")
-        println("")
-        emotional--
-        getEmoWarr()
-        val input = Scanner(System.`in`)
-        println("請問是否要補車？")
-        val id = input.nextInt()
-        when (id) {
-            1 -> TODO("推車功能")
-            2 -> println()
-        }
+//-------  工作內容  -------
+fun checkandpushb1fcarts() {
+    //工作時間
+    when (carts.cartsB1f) {
+        in 0..11 -> println("推車太少了,被抱怨了,還拿到了警告\n")
+        in 0..11 -> emotional--
+        in 0..11 -> getEmoWarr()
+        in 0..11 -> ask()
+        in 12..25 -> println("推車有點少,被抱怨了\n")
+        in 12..25 -> emotional--
+        in 12..25 -> ask()
+        else -> rest()
+    }
+}
+
+fun checkandpush1fcarts() {
+
+    when (carts.carts1f) {
+        in 11..19 -> println("推車太少,被抱怨了\n")
+        in 11..19 -> emotional--
+        in 11..19 -> getEmoWarr()
+        in 11..19 -> ask()
+        else -> rest()
     }
 }
 
@@ -226,25 +216,27 @@ fun getTotallyCartsCount() {
 // -------- 推車功能  -------
 
 fun PushB1Carts() {
+    carts.cartsB1f++
+    stamina --
     //TODO:("腦袋進水不知道怎麼補")
 }
 
 // -------- 檢查警告單、心情、獲取能力值、配點  -------
 
 fun getEmoWarr(): String {
-    println("You've got $warrning tickets.Your emotion is: $emotional")
+    println("你總共有:$warrning 張警告.你的心情為:$emotional")
     println("")
     if (emotional == 0) {
         val getsometingspecial = (1..100).random()
         if (getsometingspecial % 7 == 0) {
-            println("Your emotion were too bad,that makes you sucidie.")
-        } else println("You quit your job.")
-        println("Total earning: $TotalSalary dollars.")
+            println("你自殺了,幫你QQ")
+        } else println("你離職了")
+        println("總共賺了:$TotalSalary 元")
         exitProcess(1)
     }
     if (warrning == 50) {
-        println("Get fired. GAME OVER")
-        println("Total earning: $TotalSalary dollars.")
+        println("被炒魷魚了,GG")
+        println("總共賺了:$TotalSalary 元")
         exitProcess(1)
     }
     return String()
@@ -255,24 +247,30 @@ fun emotoGame() {
 }
 
 fun get(): String {
-    println("Your power: ${person.pow}.Speed: ${person.spd}. Lucky: ${person.luk}. Avilable point: ${person.AP}")
+    println("---------------能力---------------")
+    println("力量:${person.pow}. 速度:${person.spd}. 辛運:${person.luk}. 剩餘點數:${person.AP}")
+    println("---------------------------------")
     return String()
 } // 取得人物素質
 
 fun addAP() {
     val input = Scanner(System.`in`)
     if (person.AP > 0) {
-        println("Please enter a ability that you want to imporve.")
-        println("Power:[1]. Speed[2]. Lucky[3]")
-        val id = input.nextInt()
+        println("輸入想升級的能力.")
+        println("力量:[1]. 速度[2]. 辛運[3]")
+
         if (person.AP > 0) {
-            when (id) {
-                1 -> person.pow++
-                2 -> person.spd++
-                3 -> person.luk++
-                else -> println("Re-enter number!")
+            while (true) {
+                val id = input.nextInt()
+                when (id) {
+                    1 -> person.pow++
+                    2 -> person.spd++
+                    3 -> person.luk++
+                    else -> println("請重新輸入!")
+                }
+                if (id == 1 || id == 2 || id == 3) break
             }
-        } else println("You've got zero avilable point.")
+        } else println("你沒有點數了!")
         //TODO("還是沒辦法觸發else裡面的條件")
 
     }
@@ -284,46 +282,48 @@ fun addAP() {
 
 fun main(args: Array<String>) {
     val personname = "Wtson" // 人物名稱
-    workersname(personname).greet() // 呼叫 workersname 傳入 personname 的值 實行 .greet 的方法
+    Workersname(personname).greet() // 呼叫 Workersname 傳入 personname 的值 實行 .greet 的方法
     workinginfo() // 呼叫 workinginfo 方法
 
-    println("Clock-in! Wear your uniform,move to mall.")
-    println("Check barrows area, $carts.cartsB1f left.")
+    println("打卡了,穿上制服,進賣場面對奧客吧")
+    println("檢查了推車區,剩下${carts.carts1f} 台")
     for (days in 1..100) {   // 遊戲總共有 100 天， 所以 for 100 次
-        println("Today is day $days.")
-        if (days % 7 == 1) println("Monday")
-        else if (days % 7 == 2) println("Tuesday")
-        else if (days % 7 == 3) println("Wednesday")
-        else if (days % 7 == 4) println("Thursday")
-        else if (days % 7 == 5) println("Friday")
-        else if (days % 7 == 6) println("Saturday")
-        else if (days % 7 == 0) println("Sunday")
+        println("今天是第$days 天")
+        when (days % 7) {
+            1 -> println("星期一")
+            2 -> println("星期二")
+            3 -> println("星期三")
+            4 -> println("星期四")
+            5 -> println("星期五")
+            6 -> println("星期六")
+            7 -> println("星期日")
+        }
         println()
         println(getEmoWarr())
         println()
-        GetYasumi() // 判斷今天是否休假
+        getyasumi() // 判斷今天是否休假
         println(get())
         println()  //每一天開始都會提醒是第幾天，提醒警告單與心情值、還有顯示能力值
         gettheWork()
         if (Yasuminohi % 3 == 0) { // 暫時用機率代替隨機休假
-            println("Days off.")
+            println("放假休息啦")
             continue
         } else { //如果沒有休假就從得到上班下班時間開始
             getWorkingTime()
             var inworkingtime = OffworkTime - ToworkTime
             println()
-            println("$personname clocked in at $ToworkTime! ")
+            println("$personname 在$ToworkTime 點開始上班了 ")
             println()
             if (days % 7 > 6) {
                 do {
                     when (doinginworking) {
                         1 -> {
-                            CheckandPushB1FCarts()
+                            checkandpushb1fcarts()
                         }
                         2 -> {
-                            CheckandPush1FCarts()
+                            checkandpush1fcarts()
                         }
-                        else -> println("Enter a strange place")
+                        else -> println("迷路了")
 
                     }
 
@@ -331,7 +331,7 @@ fun main(args: Array<String>) {
 
                     println(inworkingtime)
 
-                    println("Time left: $inworkingtime hours")
+                    println("剩餘時間:$inworkingtime 小時")
                     println()
 
                     inworkingtime--
@@ -341,7 +341,7 @@ fun main(args: Array<String>) {
         }
 
 
-        println("$personname clocked out at $OffworkTime! ")
+        println("$personname 在$OffworkTime 點下班了")
         addAP()
         salary() //日節薪水
         println()
