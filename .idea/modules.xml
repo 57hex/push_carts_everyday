@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/everyday.iml" filepath="$PROJECT_DIR$/.idea/modules/everyday.iml" />
       <module fileurl="file://$PROJECT_DIR$/push_carts_everyday.iml" filepath="$PROJECT_DIR$/push_carts_everyday.iml" />
     </modules>
   </component>
