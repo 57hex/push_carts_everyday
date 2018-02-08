@@ -26,11 +26,8 @@ data class Player constructor(private var pow:Int,private var spd:Int,private va
                 this.pow += pow
                 this.AP -= pow
                 return this.pow
-            }
-            else return 0
-        }
-        else
-            return 0
+            } else return 0
+        } else return 0
     }
     private fun AddSpd(spd: Int):Int{
         if (checkAPis0orNot() && pow > 0) {
@@ -38,10 +35,8 @@ data class Player constructor(private var pow:Int,private var spd:Int,private va
             this.spd += spd
             this.AP -= spd
             return this.spd
-            }
-            else return 0
-        }
-        else return 0
+            } else return 0
+        } else return 0
     }
     fun AddLuk(luk: Int):Int{
         if (checkAPis0orNot() && pow > 0) {
@@ -49,16 +44,14 @@ data class Player constructor(private var pow:Int,private var spd:Int,private va
                 this.luk += luk
                 this.AP -= luk
                 return this.luk
-            }
-            else return 0
+            } else return 0
         } else return 0
     }
     fun checkAPis0orNot(): Boolean {
         if (this.AP < 5) {
             println("Your AP is less than 5, now your AP is ${this.AP} ")
             return true
-        }
-        if (this.AP <= 0){
+        } else if (this.AP <= 0){
             println("YOU DON'T HAVE ANY AP!")
             this.AP = 0 // 清空AP，避免有AP為負的情況發生
             return false
@@ -83,7 +76,6 @@ data class Player constructor(private var pow:Int,private var spd:Int,private va
         }
         return this.getall()
     }
-
 }
 // 個人素質結束
 
@@ -96,4 +88,5 @@ class daily constructor(private var days:Int, private var emotional:Int, private
 
 fun main(args: Array<String>) {
     var Watson = Player(0,0,0,0).Randomnize()
+
 }

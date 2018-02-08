@@ -91,11 +91,11 @@ fun getyasumi() {
 }
 
 fun workinginfo() {
-    println("你的工作是：移動車車、換水、收籃子、數停車位(why?)、開手扶梯、送包裹")
-    println("根據過勞法(?)規定,一次只能移動12輛車車")
-    println("如果主管看到你違反規則,你就準備吃單子,不然就是被往上呈報")
-    println("記住,一次一件事")
-    println("薪水為133/時,做七休二,一天七小")
+    println(" 你的工作是：移動車車、換水、收籃子、數停車位(why?)、開手扶梯、送包裹 ")
+    println(" 根據過勞法(?)規定,一次只能移動12輛車車 ")
+    println(" 如果主管看到你違反規則,你就準備吃單子,不然就是被往上呈報 ")
+    println(" 記住,一次一件事 ")
+    println(" 薪水為133/時,做七休二,一天七小")
     println("而且你晚上還要上課")
     println("這就是全部了,玩得愉快\n")
 }
@@ -331,7 +331,6 @@ fun addAP() {
     get() //呼叫get()傳回當前能力值
 }
 //--------------
-
 fun main(args: Array<String>) {
     val input = Scanner(System.`in`)
     print("請告訴我你的名子:")
@@ -369,7 +368,6 @@ fun main(args: Array<String>) {
             println("$personname 在$ToworkTime 點開始上班了 ")
             clock = ToworkTime
             println()
-
             if (Yasuminohi % 3 != 0 && (days % 7 != 6 || days % 7 != 7)) {
                 do {
                     clock++
@@ -393,11 +391,8 @@ fun main(args: Array<String>) {
                     inworkingtime--
 
                 } while (inworkingtime != 0)
-
             }
         }
-
-
         println("$personname 在$OffworkTime 點下班了")
         addAP()
         salary() //日節薪水
