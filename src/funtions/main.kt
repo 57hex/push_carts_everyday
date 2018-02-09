@@ -350,7 +350,7 @@ fun main(args: Array<String>) {
             4 -> println("星期四")
             5 -> println("星期五")
             6 -> println("星期六")
-            7 -> println("星期日")
+            0 -> println("星期日")
         }
         println()
         println(getEmoWarr())
