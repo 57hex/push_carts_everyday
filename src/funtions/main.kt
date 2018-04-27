@@ -330,6 +330,7 @@ fun addAP() {
     if (person.AP >= 1) person.AP--
     get() //呼叫get()傳回當前能力值
 }
+
 //--------------
 fun main(args: Array<String>) {
     val input = Scanner(System.`in`)
